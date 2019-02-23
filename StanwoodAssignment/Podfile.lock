@@ -1,0 +1,16 @@
+PODS:
+  - StanwoodCore (1.4.1)
+
+DEPENDENCIES:
+  - StanwoodCore
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - StanwoodCore
+
+SPEC CHECKSUMS:
+  StanwoodCore: 9f58032a58b16e9b5ebbb2906b7888d87c098642
+
+PODFILE CHECKSUM: 2218fbca993502337a40dab37c8eeb32b1c6e8d4
+
+COCOAPODS: 1.6.0
