@@ -10,10 +10,10 @@ import Foundation
 
 final class RepositoriesViewModel {
     
-    private let githubAPI: GitHubAPI
+    private let github: GitHubAPI
     
-    init(githubAPI: GitHubAPI) {
-        self.githubAPI = githubAPI
+    init(github: GitHubAPI) {
+        self.github = github
     }
     
 }

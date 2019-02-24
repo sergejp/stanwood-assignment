@@ -8,16 +8,12 @@
 
 import Foundation
 
-final class GitHubAPI {
-    
-    enum Period {
-        case lastMonth
-        case lastWeek
-        case lastDay
-    }
-    
-    func getTrendingRepositories(created in: Period) {
-        
-    }
-    
+enum GitHubPeriod {
+    case lastMonth
+    case lastWeek
+    case lastDay
+}
+
+protocol GitHubAPI {
+    func getTrendingRepositories(created in: GitHubPeriod)
 }

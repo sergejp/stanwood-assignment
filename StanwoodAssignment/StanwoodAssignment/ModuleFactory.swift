@@ -31,6 +31,19 @@ struct ModuleFactory {
         return repositories
     }
     
+    private func makeRepositoriesView() -> RepositoriesView {
+        let api: GitHubAPI = ServiceLocator.shared.get()
+        let viewModel = RepositoriesViewModel(github: api)
+        let view = RepositoriesView(viewModel: viewModel)
+        return view
+    }
+    
+    private func makeDetailView() -> UIViewController {
+        let detailView = UIViewController()
+        detailView.view.backgroundColor = .red
+        return detailView
+    }
+    
     private func makeFavoritesSplitView() -> UISplitViewController {
         let favorites = UISplitViewController()
         let tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: "Favorites"), image: nil, tag: 1)
@@ -39,23 +52,10 @@ struct ModuleFactory {
         return favorites
     }
     
-    private func makeRepositoriesView() -> RepositoriesView {
-        let api = GitHubAPI()
-        let viewModel = RepositoriesViewModel(githubAPI: api)
-        let view = RepositoriesView(viewModel: viewModel)
-        return view
-    }
-    
     private func makeFavoritesView() -> UIViewController {
         let view = UIViewController()
         view.view.backgroundColor = .blue
         return view
-    }
-    
-    private func makeDetailView() -> UIViewController {
-        let detailView = UIViewController()
-        detailView.view.backgroundColor = .red
-        return detailView
     }
     
 }
