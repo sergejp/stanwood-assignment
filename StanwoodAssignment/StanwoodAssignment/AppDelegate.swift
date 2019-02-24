@@ -12,13 +12,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var router: AppRouter?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow()
-        let vc = UIViewController()
-        vc.view.backgroundColor = .yellow
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
+        let window = UIWindow()
+        self.window = window
+        
+        router = AppRouter(window: window)
+        router?.start()
+        
         return true
     }
     
