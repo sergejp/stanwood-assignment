@@ -31,10 +31,10 @@ struct ModuleFactory {
         return repositories
     }
     
-    private func makeRepositoriesView() -> RepositoriesView {
+    private func makeRepositoriesView() -> RepositoriesViewController {
         let api: GitHubAPI = ServiceLocator.shared.get()
         let viewModel = RepositoriesViewModel(github: api)
-        let view = RepositoriesView(viewModel: viewModel)
+        let view = RepositoriesViewController(viewModel: viewModel)
         return view
     }
     

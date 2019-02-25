@@ -36,4 +36,22 @@ final class ServiceLocator {
         return service
     }
     
+    func get() -> GitHubFavoriteRepositoriesStorage {
+        if let service = get(GitHubFavoriteRepositoriesStorageImp.self) {
+            return service
+        }
+        let service = GitHubFavoriteRepositoriesStorageImp()
+        set(service)
+        return service
+    }
+    
+    func get() -> GitHubAvatarLoader {
+        if let service = get(GitHubAvatarLoaderImp.self) {
+            return service
+        }
+        let service = GitHubAvatarLoaderImp()
+        set(service)
+        return service
+    }
+    
 }
