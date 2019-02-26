@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StanwoodCore
 
 final class GitHubAvatarLoaderImp: GitHubAvatarLoader {
 
@@ -22,8 +23,10 @@ final class GitHubAvatarLoaderImp: GitHubAvatarLoader {
             if let url = URL(string: gitHubRepository.owner.avatarUrl),
                 let data = try? Data(contentsOf: url),
                 let avatarImage = UIImage(data: data) {
-                self?.cache[gitHubRepository.owner.avatarUrl] = avatarImage
-                completion(avatarImage)
+                main {
+                    self?.cache[gitHubRepository.owner.avatarUrl] = avatarImage
+                    completion(avatarImage)
+                }
             }
         }
     }
