@@ -12,8 +12,8 @@ struct ModuleFactory {
     
     func makeRootView() -> UITabBarController {
         let tabBar = makeTabBar()
-        let repositories = makeRepositoriesSplitView()
-        let favorites = makeFavoritesSplitView()
+        let repositories = makeRepositoriesNavigationController()
+        let favorites = makeFavoritesNavigationController()
         tabBar.viewControllers = [repositories, favorites]
         tabBar.selectedViewController = repositories
         return tabBar
@@ -23,12 +23,12 @@ struct ModuleFactory {
         return UITabBarController()
     }
     
-    private func makeRepositoriesSplitView() -> UISplitViewController {
-        let repositories = UISplitViewController()
+    private func makeRepositoriesNavigationController() -> UINavigationController {
+        let repositories = makeRepositoriesView()
+        let navigation = UINavigationController(rootViewController: repositories)
         let tabBarItem = UITabBarItem(title: NSLocalizedString("Repositories", comment: "Repositories"), image: nil, tag: 0)
-        repositories.tabBarItem = tabBarItem
-        repositories.viewControllers = [makeRepositoriesView(), makeDetailView()]
-        return repositories
+        navigation.tabBarItem = tabBarItem
+        return navigation
     }
     
     private func makeRepositoriesView() -> RepositoriesViewController {
@@ -44,12 +44,12 @@ struct ModuleFactory {
         return detailView
     }
     
-    private func makeFavoritesSplitView() -> UISplitViewController {
-        let favorites = UISplitViewController()
+    private func makeFavoritesNavigationController() -> UINavigationController {
+        let favorites = makeFavoritesView()
+        let navigation = UINavigationController(rootViewController: favorites)
         let tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: "Favorites"), image: nil, tag: 1)
-        favorites.tabBarItem = tabBarItem
-        favorites.viewControllers = [makeFavoritesView(), makeDetailView()]
-        return favorites
+        navigation.tabBarItem = tabBarItem
+        return navigation
     }
     
     private func makeFavoritesView() -> UIViewController {
