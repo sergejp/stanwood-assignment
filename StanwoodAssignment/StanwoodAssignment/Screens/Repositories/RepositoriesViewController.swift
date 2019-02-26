@@ -24,6 +24,7 @@ final class RepositoriesViewController: UIViewController {
             control.insertSegment(withTitle: period.displayLabel, at: index, animated: false)
         }
         control.selectedSegmentIndex = 0
+        control.apportionsSegmentWidthsByContent = true
         return control
     }()
     
@@ -61,9 +62,20 @@ final class RepositoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setCreationFilterWidth()
         navigationItem.titleView = creationPeriodFilter
+        
         addCollectionView()
         loadRepositories()
+    }
+    
+    private func setCreationFilterWidth() {
+        let freeSpaceItem = 1
+        let itemWidth = (view.bounds.width / CGFloat(creationPeriodFilter.numberOfSegments + freeSpaceItem)).rounded()
+        for segment in 0..<creationPeriodFilter.numberOfSegments {
+            creationPeriodFilter.setWidth(itemWidth, forSegmentAt: segment)
+        }
     }
     
     private func addCollectionView() {
