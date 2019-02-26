@@ -17,6 +17,16 @@ final class RepositoryViewCollection: Stanwood.Elements<GitHubRepository> {
 
 final class RepositoriesViewController: UIViewController {
     
+    private lazy var creationPeriodFilter: UISegmentedControl = {
+        let control = UISegmentedControl()
+        control.addTarget(self, action: #selector(onCreationPeriodFilterChange), for: .valueChanged)
+        for (index, period) in GitHubPeriod.allCases.enumerated() {
+            control.insertSegment(withTitle: period.displayLabel, at: index, animated: false)
+        }
+        control.selectedSegmentIndex = 0
+        return control
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
@@ -24,6 +34,15 @@ final class RepositoriesViewController: UIViewController {
         collectionView.backgroundColor = .white
         return collectionView
     }()
+    
+    private var selectedCreationPeriod: GitHubPeriod {
+        for (index, period) in GitHubPeriod.allCases.enumerated() {
+            if creationPeriodFilter.selectedSegmentIndex == index {
+                return period
+            }
+        }
+        return .lastMonth
+    }
     
     private var delegate: Stanwood.AbstractCollectionDelegate!
     private var dataSource: Stanwood.AbstractCollectionDataSource!
@@ -42,12 +61,9 @@ final class RepositoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.titleView = creationPeriodFilter
         addCollectionView()
-        
-        viewModel.getRepositories(createdIn: .lastMonth, sortBy: .stars, orderBy: .descending) { [weak self] in
-            self?.configureCollectionViewData()
-        }
+        loadRepositories()
     }
     
     private func addCollectionView() {
@@ -65,6 +81,12 @@ final class RepositoriesViewController: UIViewController {
         collectionView.set(spacing: 1)
     }
     
+    private func loadRepositories() {
+        viewModel.getRepositories(createdIn: selectedCreationPeriod, sortBy: .stars, orderBy: .descending) { [weak self] in
+            self?.configureCollectionViewData()
+        }
+    }
+    
     private func configureCollectionViewData() {
         elements = RepositoryViewCollection(items: viewModel.repositories)
         delegate = Stanwood.AbstractCollectionDelegate(dataType: elements)
@@ -72,6 +94,10 @@ final class RepositoriesViewController: UIViewController {
         
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
+    }
+    
+    @objc private func onCreationPeriodFilterChange() {
+        loadRepositories()
     }
     
 }

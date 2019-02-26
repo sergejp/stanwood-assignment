@@ -14,7 +14,7 @@ protocol GitHubAPI {
     func getRepositories(createdIn period: GitHubPeriod, sortBy sort: GitHubSortType, orderBy order: GitHubSortOrder, completion: @escaping GitHubGetRepositoryResult)
 }
 
-enum GitHubPeriod {
+enum GitHubPeriod: CaseIterable {
     case lastMonth
     case lastWeek
     case lastDay
