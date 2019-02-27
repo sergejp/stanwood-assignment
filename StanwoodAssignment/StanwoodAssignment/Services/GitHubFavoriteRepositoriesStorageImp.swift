@@ -15,19 +15,21 @@ final class GitHubFavoriteRepositoriesStorageImp: GitHubFavoriteRepositoriesStor
             if let encoded = UserDefaults.standard.object(forKey: storageKey) as? Data {
                 let decoder = JSONDecoder()
                 let decoded = try decoder.decode(Array<GitHubRepository>.self, from: encoded)
-                ids = Set(decoded.map({ $0.id }))
                 return decoded
             }
         } catch {
             print("Decoding GitHubRepository array error: \(error)")
         }
         
-        ids = []
         return []
     }
     
     private var ids = Set<Int>()
     private let storageKey = "gitHubFavoriteRepositories"
+    
+    init() {
+        ids = Set(list.map({ $0.id }))
+    }
     
     func add(_ repository: GitHubRepository) {
         var repositories = list
