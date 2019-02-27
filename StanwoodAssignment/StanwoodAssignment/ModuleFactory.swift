@@ -26,7 +26,7 @@ struct ModuleFactory {
     private func makeRepositoriesNavigationController() -> UINavigationController {
         let repositories = makeRepositoriesView()
         let navigation = UINavigationController(rootViewController: repositories)
-        let tabBarItem = UITabBarItem(title: NSLocalizedString("Repositories", comment: "Repositories"), image: nil, tag: 0)
+        let tabBarItem = UITabBarItem(title: NSLocalizedString("Repositories", comment: "Repositories"), image: #imageLiteral(resourceName: "server"), tag: 0)
         navigation.tabBarItem = tabBarItem
         return navigation
     }
@@ -47,7 +47,7 @@ struct ModuleFactory {
     private func makeFavoritesNavigationController() -> UINavigationController {
         let favorites = makeFavoritesView()
         let navigation = UINavigationController(rootViewController: favorites)
-        let tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: "Favorites"), image: nil, tag: 1)
+        let tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: "Favorites"), image: #imageLiteral(resourceName: "star-full"), tag: 1)
         navigation.tabBarItem = tabBarItem
         return navigation
     }
