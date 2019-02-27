@@ -67,7 +67,7 @@ final class RepositoriesViewController: UIViewController {
         navigationItem.titleView = creationPeriodFilter
         
         addCollectionView()
-        loadRepositories()
+        loadRepositories(startRefreshControl: true)
     }
     
     private func setCreationFilterWidth() {
@@ -91,11 +91,24 @@ final class RepositoriesViewController: UIViewController {
         collectionView.register(cellType: RepositoryCollectionViewCell.self)
         collectionView.setAutomaticSize()
         collectionView.set(spacing: 1)
+        collectionView.setRefreshControl(self, with: #selector(onCollectionViewRefreshRequest), tintColor: .gray)
     }
     
-    private func loadRepositories() {
+    @objc private func onCollectionViewRefreshRequest() {
+        loadRepositories(startRefreshControl: false)
+    }
+    
+    private func loadRepositories(startRefreshControl: Bool) {
+        if let refreshControl = collectionView.refreshControl,
+            startRefreshControl,
+            !refreshControl.isRefreshing
+        {
+            collectionView.refreshControl?.beginRefreshing()
+        }
+        
         viewModel.getRepositories(createdIn: selectedCreationPeriod, sortBy: .stars, orderBy: .descending) { [weak self] in
             self?.configureCollectionViewData()
+            self?.collectionView.refreshControl?.endRefreshing()
         }
     }
     
@@ -109,7 +122,7 @@ final class RepositoriesViewController: UIViewController {
     }
     
     @objc private func onCreationPeriodFilterChange() {
-        loadRepositories()
+        loadRepositories(startRefreshControl: true)
     }
     
 }
