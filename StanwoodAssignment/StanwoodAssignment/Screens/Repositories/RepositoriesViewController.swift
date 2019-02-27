@@ -90,7 +90,7 @@ final class RepositoriesViewController: UIViewController {
         
         collectionView.register(cellType: RepositoryCollectionViewCell.self)
         collectionView.setAutomaticSize()
-        collectionView.set(spacing: 1)
+        collectionView.set(spacing: 0)
         collectionView.setRefreshControl(self, with: #selector(onCollectionViewRefreshRequest), tintColor: .gray)
     }
     

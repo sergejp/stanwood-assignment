@@ -40,7 +40,7 @@ struct ModuleFactory {
     
     private func makeDetailView() -> UIViewController {
         let detailView = UIViewController()
-        detailView.view.backgroundColor = .red
+        detailView.view.backgroundColor = .white
         return detailView
     }
     
@@ -54,7 +54,7 @@ struct ModuleFactory {
     
     private func makeFavoritesView() -> UIViewController {
         let view = UIViewController()
-        view.view.backgroundColor = .blue
+        view.view.backgroundColor = .white
         return view
     }
     
